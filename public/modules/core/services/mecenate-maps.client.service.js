@@ -49,12 +49,27 @@
             return deferred.promise;
         };
 
+        var getClientToken = function() {
+            var deferred = $q.defer();
+            $http.get(URL_API + '/client_token').
+                success(function(data, status, headers, config) {
+                    //$log.debug('SUCCESS mapService.getClientToken(): ' + JSON.stringify(data));
+                    deferred.resolve(data);
+                }).
+                error(function(data, status, headers, config) {
+                    $log.debug('ERROR mapService.getClientToken(): ' + JSON.stringify(data));
+                    //deferred.reject(data);
+                });
+            return deferred.promise;
+        };
+
         var postDonation = function() {
             // TODO
         };
 
         return {
             getPois: getPois,
+            getClientToken: getClientToken,
             postDonation: postDonation
         };
     }

@@ -6,7 +6,7 @@ var ApplicationConfiguration = (function() {
 	var applicationModuleName = 'mecenate-web';
 	var applicationModuleVendorDependencies =
 		['ngResource', 'ui.router', 'ui.bootstrap', 'ui.utils',
-			// added
+			// added moduel
 			'uiGmapgoogle-maps', 'ngLodash'];
 
 	// Add a new vertical module

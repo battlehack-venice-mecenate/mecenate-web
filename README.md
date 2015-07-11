@@ -20,5 +20,3 @@ git push origin master
 ```
 
 [mecenate-web](https://mecenate-web.herokuapp.com/)
-
-http://angular-ui.github.io/angular-google-maps/#!/use

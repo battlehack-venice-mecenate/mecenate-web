@@ -7,7 +7,7 @@ var ApplicationConfiguration = (function() {
 	var applicationModuleVendorDependencies =
 		['ngResource', 'ui.router', 'ui.bootstrap', 'ui.utils',
 			// added
-			'uiGmapgoogle-maps'];
+			'uiGmapgoogle-maps', 'ngLodash'];
 
 	// Add a new vertical module
 	var registerModule = function(moduleName, dependencies) {

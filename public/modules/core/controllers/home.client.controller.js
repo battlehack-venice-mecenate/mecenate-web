@@ -1,16 +1,23 @@
 'use strict';
 
+(function () {
 
-angular.module('core').controller('HomeController', ['$scope', 'uiGmapGoogleMapApi', 'mecenateMapService',
-	function($scope, uiGmapGoogleMapApi, mecenateMapService) {
+	angular.module('core').controller('HomeController', HomeController);
 
-		uiGmapGoogleMapApi.then(function(maps) {
-			$scope.map = { center: { latitude: 45, longitude: -73 }, zoom: 8 };
-		});
+	HomeController.$inject = ['$log', '$q', '$scope', 'uiGmapGoogleMapApi', 'mecenateMapService'];
+
+	function HomeController($log, $q, $scope, uiGmapGoogleMapApi, mecenateMapService) {
 
 		mecenateMapService.getPois().then(function(data) {
-			console.log('AAA' + data);
+			//$log.debug('invoke service getPois: ' + JSON.stringify(data));
+			uiGmapGoogleMapApi.then(function(maps) {
+				$scope.map = data;
+			});
 		});
 
-	}
-]);
+		$scope.clickMarker = function (gMarker,eventName, model) {
+			$log.debug('clickMarker: ' + JSON.stringify(model));
+		};
+	};
+
+})();

@@ -24,6 +24,7 @@ module.exports = {
 				'public/lib/angular-bootstrap/ui-bootstrap-tpls.js',
 				// added
 				'public/lib/lodash/lodash.min.js',
+				'public/lib/ng-lodash/build/ng-lodash.js',
 				'public/lib/angular-google-maps/dist/angular-google-maps.min.js'
 			]
 		},

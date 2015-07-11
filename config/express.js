@@ -23,7 +23,7 @@ var fs = require('fs'),
 	consolidate = require('consolidate'),
 	path = require('path');
 
-module.exports = function(db) {
+module.exports = function() {
 	// Initialize express app
 	var app = express();
 
@@ -86,6 +86,7 @@ module.exports = function(db) {
 	app.use(cookieParser());
 
 	// Express MongoDB session storage
+	/*
 	app.use(session({
 		saveUninitialized: true,
 		resave: true,
@@ -95,6 +96,7 @@ module.exports = function(db) {
 			collection: config.sessionCollection
 		})
 	}));
+	*/
 
 	// use passport session
 	app.use(passport.initialize());

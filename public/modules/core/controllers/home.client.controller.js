@@ -16,8 +16,17 @@
 		});
 
 		$scope.clickMarker = function (gMarker,eventName, model) {
-			$log.debug('clickMarker: ' + JSON.stringify(model));
+			//$log.debug('clickMarker: ' + JSON.stringify(model));
+			$scope.donation = {
+				id: model.id,
+				name: model.name,
+				description: model.description,
+				imageUrl: model.imageUrl,
+				amount: 5
+			};
 		};
+
+
 	};
 
 })();

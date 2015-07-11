@@ -49,8 +49,13 @@
             return deferred.promise;
         };
 
+        var postDonation = function() {
+            // TODO
+        };
+
         return {
-            getPois: getPois
+            getPois: getPois,
+            postDonation: postDonation
         };
     }
 

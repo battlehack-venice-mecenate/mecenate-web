@@ -10,6 +10,7 @@
         </div>
         <div class="col-sm-4">
 
+            <!--
             <div class="panel panel-default">
                 <div class="panel-heading">Last donations</div>
                 <ul class="list-group">
@@ -17,23 +18,36 @@
                     <li class="list-group-item">TODO ngRepeat</li>
                 </ul>
             </div>
+            -->
 
-            <div class="panel panel-primary">
-                <div class="panel-heading">Point of interest selected</div>
+            <div class="panel panel-primary" data-ng-if="donation.id">
+                <div class="panel-heading">Point of interest: {{donation.name}}</div>
                 <div class="panel-body">
-                    <p>TODO info selected</p>
-                </div>
-            </div>
-
-            <div class="panel panel-success">
-                <div class="panel-heading">Donation</div>
-                <div class="panel-body">
-                    <form>
-                        <div class="form-group">
-                            <label for="amountId">Amount</label>
-                            <input name="amount" type="text" class="form-control" id="amountId" placeholder="Amount">
+                    <div class="row">
+                        <div class="col-sm-8">
+                            {{donation.description}}
                         </div>
-                        <button type="submit" class="btn btn-default">GO</button>
+                        <div class="col-sm-4" data-ng-if="donation.imageUrl">
+                            <img ng-src="{{donation.imageUrl}}" alt="image" class="img-thumbnail">
+                        </div>
+                    </div>
+                    <form>
+                        <div class="radio">
+                            <label>
+                                <input type="radio" data-ng-model="donation.amount" value="1">1
+                            </label>
+                        </div>
+                        <div class="radio">
+                            <label>
+                                <input type="radio" data-ng-model="donation.amount" value="5">5
+                            </label>
+                        </div>
+                        <div class="radio">
+                            <label>
+                                <input type="radio" data-ng-model="donation.amount" value="10">10
+                            </label>
+                        </div>
+                        <button type="submit" class="btn btn-default">Donate</button>
                     </form>
                 </div>
             </div>

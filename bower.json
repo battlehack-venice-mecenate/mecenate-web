@@ -1,14 +1,16 @@
 {
-	"name": "mecenate-web",
-	"version": "0.0.1",
-	"description": "battlehack",
-	"dependencies": {
-		"bootstrap": "~3",
-		"angular": "~1.2",
-		"angular-resource": "~1.2",
-		"angular-mocks": "~1.2",
-		"angular-bootstrap": "~0.11.2",
-		"angular-ui-utils": "~0.1.1",
-		"angular-ui-router": "~0.2.11"
-	}
+  "name": "mecenate-web",
+  "version": "0.0.1",
+  "description": "battlehack",
+  "dependencies": {
+    "bootstrap": "~3",
+    "angular": "~1.2",
+    "angular-resource": "~1.2",
+    "angular-mocks": "~1.2",
+    "angular-bootstrap": "~0.11.2",
+    "angular-ui-utils": "~0.1.1",
+    "angular-ui-router": "~0.2.11",
+    "angular-google-maps": "~2.1.5",
+    "ng-lodash": "~0.2.3"
+  }
 }

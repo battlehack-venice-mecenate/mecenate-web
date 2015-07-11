@@ -10,10 +10,12 @@ yo meanjs
 foreman start web
 
 // first time
+heroku login
 heroku create
+git push heroku master
 
 // deploy heroku (webhook)
 git push origin master
-
-[heroku](https://mighty-taiga-3453.herokuapp.com/)
 ```
+
+[HEROKU](https://mighty-taiga-3453.herokuapp.com/)

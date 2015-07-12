@@ -67,7 +67,8 @@
                 name: model.name,
                 description: model.description,
                 imageUrl: model.imageUrl,
-                amount: 5
+                amount: 5,
+                total: model.total
             };
 
             initBraintree($log, $scope, mecenateMapService);

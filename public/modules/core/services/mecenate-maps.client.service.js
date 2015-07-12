@@ -15,7 +15,8 @@
                 description: n.description,
                 imageUrl: n['image_url'],
                 latitude: n.lat,
-                longitude: n.lon
+                longitude: n.lon,
+                total: n.total_donations_in_cents/100
             });
         });
         var map = {

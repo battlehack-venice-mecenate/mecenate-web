@@ -69,7 +69,8 @@
                 description: model.description,
                 imageUrl: model.imageUrl,
                 amount: 5,
-                total: model.total
+                total: model.total,
+                target: model.target
             };
 
             initBraintree($log, $scope, mecenateHomeService);

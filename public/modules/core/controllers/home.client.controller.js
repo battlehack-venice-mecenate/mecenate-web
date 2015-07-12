@@ -9,10 +9,18 @@
 
     var initBraintree = function($log, $scope, mecenateMapService) {
 
+        $scope.alerts = [];
+
+        $scope.closeAlert = function(index) {
+            $scope.alerts.splice(index, 1);
+        };
+
         var completePayment = function(nonce) {
-            mecenateMapService.postDonation(nonce, $scope.donation.id, $scope.donation.amount)
-                .then(function (data) {
-                $log.debug('invoke service postDonation: ' + JSON.stringify(data));
+            mecenateMapService.postDonation(nonce, $scope.donation.id, $scope.donation.amount).then(function (data) {
+                //$log.debug('invoke service postDonation: ' + JSON.stringify(data));
+
+                var message = 'New donation of ' + data.donation['braintree_response'].amount;
+                $scope.alerts.push({type: 'success', msg: message});
             });
         };
 
@@ -21,7 +29,7 @@
             braintree.setup(data.client_token, "dropin", {
                 container: "dropin-container",
                 onPaymentMethodReceived: function(response) {
-                    $log.debug('onPaymentMethodReceived: ' + JSON.stringify(response));
+                    //$log.debug('onPaymentMethodReceived: ' + JSON.stringify(response));
                     completePayment(response.nonce);
                 },
                 onReady: function() {

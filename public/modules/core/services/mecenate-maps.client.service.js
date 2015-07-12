@@ -44,7 +44,7 @@
                 }).
                 error(function(data, status, headers, config) {
                     $log.debug('ERROR mecenateMapService.getPois(): ' + JSON.stringify(data));
-                    //deferred.reject(data);
+                    deferred.reject(data);
                 });
             return deferred.promise;
         };
@@ -58,7 +58,7 @@
                 }).
                 error(function(data, status, headers, config) {
                     $log.debug('ERROR mecenateMapService.getClientToken(): ' + JSON.stringify(data));
-                    //deferred.reject(data);
+                    deferred.reject(data);
                 });
             return deferred.promise;
         };
@@ -72,17 +72,17 @@
 
             var URL_DONATION = '/pois/' + id + '/donations';
 
-            $log.debug('new DONATION: [id=' + id + '] ' + JSON.stringify(payload));
+            //$log.debug('new DONATION: [id=' + id + '] ' + JSON.stringify(payload));
 
             var deferred = $q.defer();
             $http.post(URL_API + URL_DONATION, payload).
                 success(function(data, status, headers, config) {
-                    $log.debug('SUCCESS mecenateMapService.postDonation(): ' + JSON.stringify(data));
+                    //$log.debug('SUCCESS mecenateMapService.postDonation(): ' + JSON.stringify(data));
                     deferred.resolve(data);
                 }).
                 error(function(data, status, headers, config) {
                     $log.debug('ERROR mecenateMapService.postDonation(): ' + JSON.stringify(data));
-                    //deferred.reject(data);
+                    deferred.reject(data);
                 });
             return deferred.promise;
         };

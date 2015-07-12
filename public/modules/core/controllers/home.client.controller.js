@@ -7,6 +7,36 @@
     HomeController.$inject = ['$log', '$q', '$scope',
         'uiGmapGoogleMapApi', 'mecenateMapService'];
 
+    var initBraintree = function($log, $scope, mecenateMapService) {
+
+        var completePayment = function(nonce) {
+            mecenateMapService.postDonation(nonce, $scope.donation.id, $scope.donation.amount)
+                .then(function (data) {
+                $log.debug('invoke service postDonation: ' + JSON.stringify(data));
+            });
+        };
+
+        mecenateMapService.getClientToken().then(function (data) {
+            //$log.debug('invoke service getClientToken: ' + JSON.stringify(data));
+            braintree.setup(data.client_token, "dropin", {
+                container: "dropin-container",
+                onPaymentMethodReceived: function(response) {
+                    $log.debug('onPaymentMethodReceived: ' + JSON.stringify(response));
+                    completePayment(response.nonce);
+                },
+                onReady: function() {
+                    //$log.debug('onReady');
+                    $scope.$apply(function() {
+                        $scope.showBtn = true;
+                    });
+                },
+                onError: function(response) {
+                    //$log.debug('onError: ' + JSON.stringify(response));
+                }
+            });
+        });
+    };
+
     function HomeController($log, $q, $scope, uiGmapGoogleMapApi, mecenateMapService, $braintree) {
 
         mecenateMapService.getPois().then(function (data) {
@@ -26,28 +56,7 @@
                 amount: 5
             };
 
-            mecenateMapService.getClientToken().then(function (data) {
-                //$log.debug('invoke service getClientToken: ' + JSON.stringify(data));
-                /*
-                braintree.setup(data.client_token, "dropin", {
-                    container: "payment-form",
-                    onPaymentMethodReceived: function (obj) {
-                        // Do some logic in here.
-                        // When you're ready to submit the form:
-                        //myForm.submit();
-                        $log.debug('braintree: ' + JSON.stringify(obj));
-                    }
-                });
-                */
-                braintree.setup(data.client_token, "dropin", {
-                    container: "dropin-container",
-                    paypal: {
-                        singleUse: true,
-                        amount: 10.00,
-                        currency: 'USD'
-                    }
-                });
-            });
+            initBraintree($log, $scope, mecenateMapService);
         };
 
     };

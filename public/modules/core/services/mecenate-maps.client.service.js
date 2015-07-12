@@ -35,7 +35,7 @@
             var deferred = $q.defer();
             $http.get(URL_API + '/pois').
                 success(function(data, status, headers, config) {
-                    //$log.debug('SUCCESS mapService.getPois(): ' + JSON.stringify(data));
+                    //$log.debug('SUCCESS mecenateMapService.getPois(): ' + JSON.stringify(data));
                     if (data.pois !== undefined && !_.isEmpty(data.pois)) {
                         deferred.resolve(buildPoisMap(data));
                     } else {
@@ -43,7 +43,7 @@
                     }
                 }).
                 error(function(data, status, headers, config) {
-                    $log.debug('ERROR mapService.getPois(): ' + JSON.stringify(data));
+                    $log.debug('ERROR mecenateMapService.getPois(): ' + JSON.stringify(data));
                     //deferred.reject(data);
                 });
             return deferred.promise;
@@ -53,18 +53,38 @@
             var deferred = $q.defer();
             $http.get(URL_API + '/client_token').
                 success(function(data, status, headers, config) {
-                    //$log.debug('SUCCESS mapService.getClientToken(): ' + JSON.stringify(data));
+                    //$log.debug('SUCCESS mecenateMapService.getClientToken(): ' + JSON.stringify(data));
                     deferred.resolve(data);
                 }).
                 error(function(data, status, headers, config) {
-                    $log.debug('ERROR mapService.getClientToken(): ' + JSON.stringify(data));
+                    $log.debug('ERROR mecenateMapService.getClientToken(): ' + JSON.stringify(data));
                     //deferred.reject(data);
                 });
             return deferred.promise;
         };
 
-        var postDonation = function() {
-            // TODO
+        // for test a valid card is: cardNumber = 4111 1111 1111 1111 and aaYY greater than now
+        var postDonation = function(nonce, id, amount) {
+            var payload = {
+                'payment_method_nonce': nonce,
+                'amount_in_cents': amount*100
+            };
+
+            var URL_DONATION = '/pois/' + id + '/donations';
+
+            $log.debug('new DONATION: [id=' + id + '] ' + JSON.stringify(payload));
+
+            var deferred = $q.defer();
+            $http.post(URL_API + URL_DONATION, payload).
+                success(function(data, status, headers, config) {
+                    $log.debug('SUCCESS mecenateMapService.postDonation(): ' + JSON.stringify(data));
+                    deferred.resolve(data);
+                }).
+                error(function(data, status, headers, config) {
+                    $log.debug('ERROR mecenateMapService.postDonation(): ' + JSON.stringify(data));
+                    //deferred.reject(data);
+                });
+            return deferred.promise;
         };
 
         return {

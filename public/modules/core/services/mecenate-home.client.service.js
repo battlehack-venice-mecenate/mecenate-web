@@ -3,9 +3,9 @@
 
     var URL_API = 'https://mecenate-api.herokuapp.com/';
 
-    angular.module('core').service('mecenateMapService', mecenateMapService);
+    angular.module('core').service('mecenateHomeService', mecenateHomeService);
 
-    mecenateMapService.$inject = ['$log', '$q', '$http', 'lodash'];
+    mecenateHomeService.$inject = ['$log', '$q', '$http', 'lodash'];
 
     var buildPoisMap = function(data) {
         var markersTransformed = _.transform(data.pois, function(result, n, value) {
@@ -30,13 +30,13 @@
         return map;
     };
 
-    function mecenateMapService($log, $q, $http, _) {
+    function mecenateHomeService($log, $q, $http, _) {
 
         var getPois = function() {
             var deferred = $q.defer();
             $http.get(URL_API + '/pois').
                 success(function(data, status, headers, config) {
-                    //$log.debug('SUCCESS mecenateMapService.getPois(): ' + JSON.stringify(data));
+                    //$log.debug('SUCCESS mecenateHomeService.getPois(): ' + JSON.stringify(data));
                     if (data.pois !== undefined && !_.isEmpty(data.pois)) {
                         deferred.resolve(buildPoisMap(data));
                     } else {
@@ -44,7 +44,7 @@
                     }
                 }).
                 error(function(data, status, headers, config) {
-                    $log.debug('ERROR mecenateMapService.getPois(): ' + JSON.stringify(data));
+                    $log.debug('ERROR mecenateHomeService.getPois(): ' + JSON.stringify(data));
                     deferred.reject(data);
                 });
             return deferred.promise;
@@ -54,21 +54,22 @@
             var deferred = $q.defer();
             $http.get(URL_API + '/client_token').
                 success(function(data, status, headers, config) {
-                    //$log.debug('SUCCESS mecenateMapService.getClientToken(): ' + JSON.stringify(data));
+                    //$log.debug('SUCCESS mecenateHomeService.getClientToken(): ' + JSON.stringify(data));
                     deferred.resolve(data);
                 }).
                 error(function(data, status, headers, config) {
-                    $log.debug('ERROR mecenateMapService.getClientToken(): ' + JSON.stringify(data));
+                    $log.debug('ERROR mecenateHomeService.getClientToken(): ' + JSON.stringify(data));
                     deferred.reject(data);
                 });
             return deferred.promise;
         };
 
         // for test a valid card is: cardNumber = 4111 1111 1111 1111 and aaYY greater than now
-        var postDonation = function(nonce, id, amount) {
+        var postDonation = function(nonce, id, amount, email) {
             var payload = {
                 'payment_method_nonce': nonce,
-                'amount_in_cents': amount*100
+                'amount_in_cents': amount*100,
+                'email': email
             };
 
             var URL_DONATION = '/pois/' + id + '/donations';
@@ -78,25 +79,11 @@
             var deferred = $q.defer();
             $http.post(URL_API + URL_DONATION, payload).
                 success(function(data, status, headers, config) {
-                    //$log.debug('SUCCESS mecenateMapService.postDonation(): ' + JSON.stringify(data));
+                    //$log.debug('SUCCESS mecenateHomeService.postDonation(): ' + JSON.stringify(data));
                     deferred.resolve(data);
                 }).
                 error(function(data, status, headers, config) {
-                    $log.debug('ERROR mecenateMapService.postDonation(): ' + JSON.stringify(data));
-                    deferred.reject(data);
-                });
-            return deferred.promise;
-        };
-
-        var getDonations = function() {
-            var deferred = $q.defer();
-            $http.get(URL_API + '/donations').
-                success(function(data, status, headers, config) {
-                    //$log.debug('SUCCESS mecenateMapService.getDonations(): ' + JSON.stringify(data));
-                    deferred.resolve(data);
-                }).
-                error(function(data, status, headers, config) {
-                    $log.debug('ERROR mecenateMapService.getDonations(): ' + JSON.stringify(data));
+                    $log.debug('ERROR mecenateHomeService.postDonation(): ' + JSON.stringify(data));
                     deferred.reject(data);
                 });
             return deferred.promise;
@@ -105,8 +92,7 @@
         return {
             getPois: getPois,
             getClientToken: getClientToken,
-            postDonation: postDonation,
-            getDonations: getDonations
+            postDonation: postDonation
         };
     }
 

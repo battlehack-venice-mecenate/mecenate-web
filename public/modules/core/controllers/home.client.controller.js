@@ -5,9 +5,9 @@
     angular.module('core').controller('HomeController', HomeController);
 
     HomeController.$inject = ['$log', '$q', '$scope',
-        'uiGmapGoogleMapApi', 'mecenateMapService'];
+        'uiGmapGoogleMapApi', 'mecenateHomeService'];
 
-    var initBraintree = function($log, $scope, mecenateMapService) {
+    var initBraintree = function($log, $scope, mecenateHomeService) {
 
         $scope.alerts = [];
 
@@ -16,7 +16,8 @@
         };
 
         var completePayment = function(nonce) {
-            mecenateMapService.postDonation(nonce, $scope.donation.id, $scope.donation.amount).then(function (data) {
+            mecenateHomeService.postDonation(nonce, $scope.donation.id,
+                $scope.donation.amount, $scope.donation.email).then(function (data) {
                 //$log.debug('invoke service postDonation: ' + JSON.stringify(data));
 
                 var message = 'New donation of ' + data.donation['braintree_response'].amount;
@@ -27,7 +28,7 @@
         };
 
         var initClientToken = function() {
-            mecenateMapService.getClientToken().then(function (data) {
+            mecenateHomeService.getClientToken().then(function (data) {
                 //$log.debug('invoke service getClientToken: ' + JSON.stringify(data));
                 braintree.setup(data.client_token, "dropin", {
                     container: "dropin-container",
@@ -51,9 +52,9 @@
         initClientToken();
     };
 
-    function HomeController($log, $q, $scope, uiGmapGoogleMapApi, mecenateMapService) {
+    function HomeController($log, $q, $scope, uiGmapGoogleMapApi, mecenateHomeService) {
 
-        mecenateMapService.getPois().then(function (data) {
+        mecenateHomeService.getPois().then(function (data) {
             //$log.debug('invoke service getPois: ' + JSON.stringify(data));
             uiGmapGoogleMapApi.then(function (maps) {
                 $scope.map = data;
@@ -71,7 +72,7 @@
                 total: model.total
             };
 
-            initBraintree($log, $scope, mecenateMapService);
+            initBraintree($log, $scope, mecenateHomeService);
         };
     };
 

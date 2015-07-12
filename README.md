@@ -29,6 +29,7 @@ git push origin master
 ```
 
 Navigate to [mecenate-web](https://mecenate-web.herokuapp.com/)
+
 Navigate also to [mecenate-api](https://mecenate-api.herokuapp.com/)
 
 #### Service integrated:

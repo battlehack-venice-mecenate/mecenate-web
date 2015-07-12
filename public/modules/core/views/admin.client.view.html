@@ -10,6 +10,7 @@
                             <th>Amount &euro;</th>
                             <th>Status</th>
                             <th>Date</th>
+                            <th>Email</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -18,6 +19,7 @@
                         <td>{{donation.braintree_response.amount}}</td>
                         <td>{{donation.braintree_response.status}}</td>
                         <td>{{donation.braintree_response.created_at | date:'short'}}</td>
+                        <td>{{donation.email}}</td>
                     </tr>
                     </tbody>
                 </table>

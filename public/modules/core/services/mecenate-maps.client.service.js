@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    var URL_API = 'https://boiling-escarpment-2702.herokuapp.com';
+    var URL_API = 'https://mecenate-api.herokuapp.com/';
 
     angular.module('core').service('mecenateMapService', mecenateMapService);
 

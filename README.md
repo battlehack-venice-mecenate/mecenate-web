@@ -2,9 +2,9 @@
 
 Braintree, Heroku, Node.js, AngularJS
 
-Italy has a great number of wonderful monuments and artworks. Keep them beautiful as they are, it is an expensive task. As tourists we can get more responsible and contribute to these expenses.
+Italy has a great number of wonderful monuments and artworks. Keep them beautiful as they are is expensive. As tourists we can be more responsible and contribute to keep them alive.
 
-Mecenate lets you donate to keep your preferred artworks and monuments healthy. Let all people in the words be able to see historic monuments and artworks: help to keep them up!
+Mecenate lets you donate to keep them up! 
 
 ```
 git clone https://github.com/battlehack-venice-mecenate/mecenate-web.git

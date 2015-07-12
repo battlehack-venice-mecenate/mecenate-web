@@ -21,28 +21,34 @@
 
                 var message = 'New donation of ' + data.donation['braintree_response'].amount;
                 $scope.alerts.push({type: 'success', msg: message});
+
+                $scope.donation = undefined;
             });
         };
 
-        mecenateMapService.getClientToken().then(function (data) {
-            //$log.debug('invoke service getClientToken: ' + JSON.stringify(data));
-            braintree.setup(data.client_token, "dropin", {
-                container: "dropin-container",
-                onPaymentMethodReceived: function(response) {
-                    //$log.debug('onPaymentMethodReceived: ' + JSON.stringify(response));
-                    completePayment(response.nonce);
-                },
-                onReady: function() {
-                    //$log.debug('onReady');
-                    $scope.$apply(function() {
-                        $scope.showBtn = true;
-                    });
-                },
-                onError: function(response) {
-                    //$log.debug('onError: ' + JSON.stringify(response));
-                }
+        var initClientToken = function() {
+            mecenateMapService.getClientToken().then(function (data) {
+                //$log.debug('invoke service getClientToken: ' + JSON.stringify(data));
+                braintree.setup(data.client_token, "dropin", {
+                    container: "dropin-container",
+                    onPaymentMethodReceived: function(response) {
+                        //$log.debug('onPaymentMethodReceived: ' + JSON.stringify(response));
+                        completePayment(response.nonce);
+                    },
+                    onReady: function() {
+                        //$log.debug('onReady');
+                        $scope.$apply(function() {
+                            $scope.donation.showBtn = true;
+                        });
+                    },
+                    onError: function(response) {
+                        //$log.debug('onError: ' + JSON.stringify(response));
+                    }
+                });
             });
-        });
+        };
+
+        initClientToken();
     };
 
     function HomeController($log, $q, $scope, uiGmapGoogleMapApi, mecenateMapService, $braintree) {

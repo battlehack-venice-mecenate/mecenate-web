@@ -28,13 +28,13 @@ heroku open
 git push origin master
 ```
 
-[mecenate-web](https://mecenate-web.herokuapp.com/)
+Navigate to [mecenate-web](https://mecenate-web.herokuapp.com/)
 
-service integrated
+#### Service integrated:
 * [angular-google-maps](http://angular-ui.github.io/angular-google-maps)
 * [braintreepayments](https://www.braintreepayments.com/docs/javascript)
 
 TODO
 * clean up unused MEAN.js
-* security issues: move API key of maps and braintree on server side
-* https://github.com/demianborba/demo-braintree-angular-node
+* security issues: move maps API key on server side
+* TESTS!!

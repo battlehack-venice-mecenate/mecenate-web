@@ -51,7 +51,7 @@
         initClientToken();
     };
 
-    function HomeController($log, $q, $scope, uiGmapGoogleMapApi, mecenateMapService, $braintree) {
+    function HomeController($log, $q, $scope, uiGmapGoogleMapApi, mecenateMapService) {
 
         mecenateMapService.getPois().then(function (data) {
             //$log.debug('invoke service getPois: ' + JSON.stringify(data));
@@ -72,7 +72,6 @@
 
             initBraintree($log, $scope, mecenateMapService);
         };
-
     };
 
 })();

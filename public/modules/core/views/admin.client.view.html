@@ -1,0 +1,25 @@
+<section>
+    <div class="panel panel-default">
+        <div class="panel-heading">Last POIS donations</div>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Amount &euro;</th>
+                    <th>Status</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr data-ng-repeat="donation in donations">
+                    <td>{{donation.braintree_response.custom_fields.poi_id}}</td>
+                    <td>{{donation.braintree_response.custom_fields.poi_name}}</td>
+                    <td>{{donation.braintree_response.amount}}</td>
+                    <td>{{donation.braintree_response.status}}</td>
+                    <td>{{donation.braintree_response.created_at | date:'short'}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</section>

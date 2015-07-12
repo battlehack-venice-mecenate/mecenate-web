@@ -87,10 +87,25 @@
             return deferred.promise;
         };
 
+        var getDonations = function() {
+            var deferred = $q.defer();
+            $http.get(URL_API + '/donations').
+                success(function(data, status, headers, config) {
+                    //$log.debug('SUCCESS mecenateMapService.getDonations(): ' + JSON.stringify(data));
+                    deferred.resolve(data);
+                }).
+                error(function(data, status, headers, config) {
+                    $log.debug('ERROR mecenateMapService.getDonations(): ' + JSON.stringify(data));
+                    deferred.reject(data);
+                });
+            return deferred.promise;
+        };
+
         return {
             getPois: getPois,
             getClientToken: getClientToken,
-            postDonation: postDonation
+            postDonation: postDonation,
+            getDonations: getDonations
         };
     }
 
